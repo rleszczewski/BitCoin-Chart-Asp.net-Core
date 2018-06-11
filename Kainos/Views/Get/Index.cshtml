@@ -1,0 +1,130 @@
+﻿@using Kainos.Models
+@model Kainos.Controllers.GetController.ViewModel
+
+
+@{
+    
+        
+    var YValuesBTC = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Btc.Select(x => x.average).ToList());
+    var YValuesETC = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Etc.Select(x => x.average).ToList());
+    var YValuesLHC = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Ltc.Select(x => x.average).ToList());
+
+
+    var InicialPointX = Model.Btc.Select(x => x.time).ToList();
+    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Btc.Select(x => x.time).ToList());
+
+    ViewData["Title"] = "Line Chart";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Line</title>
+</head>
+<body>
+    <div class="box-body">
+
+        <div class="chart-container">
+            <canvas id="chart" style="width:100%; height:500px"></canvas>
+        </div>
+    </div>
+</body>
+</html>
+<!-- import plugin script -->
+<script src="../dist/RangeSlider-all.min.js"></script>
+
+<link rel="stylesheet" href="../dist/RangeSlider-all.min.css">
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script src="../bower_components/nouislider/distribute/nouislider.js"></script>
+<script src="../bower_components/Chart.js/dist/Chart.bundle.js"></script>
+<script src="../src/RangeSlider-core.js"></script>
+
+<link rel="stylesheet" href="../bower_components/nouislider/distribute/nouislider.min.css">
+<link rel="stylesheet" href="../src/RangeSlider-core.css">
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+
+        $(function () {
+    var chartName = "chart";
+        var ctx = document.getElementById(chartName).getContext('2d');
+        var data = {
+                labels: @Html.Raw(XLabels),
+                datasets: [{
+                    label: "BTC VALUE",
+                    data:@Html.Raw(YValuesBTC),
+                },
+                {
+                    label: "ETH VALUE",
+                    data:@Html.Raw(YValuesETC),
+                    },
+                {
+                    label: "LHC VALUE",
+                    data:@Html.Raw(YValuesLHC),
+                     }]
+            };
+
+var options = {
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        type: 'logarithmic',
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "rgba(255,99,164,0.2)"
+                        }
+
+}],
+                    xAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            };
+
+       var myChart = new  Chart(ctx, {
+           options: options,
+           trendlineLinear: {
+               style: "rgba(255,105,180, .8)",
+               width: 2
+           },
+                data: data,
+                type:'line'
+
+            });
+            @*options2 = {
+                scaleBeginAtZero: true,
+                /*This is how to customize the way the labels look :) */
+                tooltipTemplate: "<%if (label){%><%=label%>: <%}%>$<%= value %>",
+                label: 'test'
+            },
+            rs = new RangeSliderChart({
+
+                chartData: data,
+                chartOpts: options2,
+                chartType: 'line',
+                chartCTX: ctx,
+
+                class: 'Index',
+
+                initial: [@Html.Raw(InicialPointX[0]),@Html.Raw(InicialPointX[10])]
+            })*@
+    });
+
+</script>  

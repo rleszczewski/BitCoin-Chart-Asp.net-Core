@@ -1,0 +1,22 @@
+{
+  "name": "leszczzewski",
+  "version": "6.1.0",
+  "description": "Projekt na zaliczenie ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Rafal Leszczewski",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "bower": "^1.8.4",
+    "chart.js-rangeslider": "^1.2.5",
+    "chartjs-plugin-annotation": "^0.5.7"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rleszczewski"
+  }
+}
